@@ -1,0 +1,12 @@
+{
+  "name": "eit2023backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:xarrijorge/eit2023backend.git",
+  "author": "Xarri Jorge <kodinglife@gmail.com>",
+  "license": "MIT",
+  "private": null,
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
