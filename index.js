@@ -1,21 +1,16 @@
 import express from "express"
+const app = express()
 import bodyParser from "body-parser"
 
-import data from "./src/eitsdata.js"
+import eitRouter from "./src/controllers/eit.js"
 
-
-
-const app = express()
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) =>  res.send("Hello there") )
+app.get('/eits', eitRouter)
 
-app.get('/eits', (req, res) =>{
-    const person = Math.floor(Math.random() * 51)
-    res.json(data[person])
-})
 
 const PORT = process.env.PORT || 8000
 
