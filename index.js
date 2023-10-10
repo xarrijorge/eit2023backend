@@ -10,7 +10,7 @@ import { configDotenv } from "dotenv"
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) =>  res.send("Hello there") )
+app.get('/', (req, res) =>  res.send("Hello there, Peris Muthoni Muriuki!") )
 app.get('/eits', eitRouter)
 
 // app.get('/skills', skillRouter)
