@@ -1,14 +1,18 @@
 import 'dotenv/config'
 import express from "express"
 const app = express()
+
+import cors from "cors"
 import bodyParser from "body-parser"
 
 import eitRouter from "./src/controllers/eit.js"
 import { configDotenv } from "dotenv"
 
-
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(accessControl)
 
 app.get('/', (req, res) =>  res.send("Hello there, Peris Muthoni Muriuki!") )
 app.get('/eits', eitRouter)

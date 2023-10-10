@@ -1,5 +1,5 @@
 url: https://console.cron-job.org/dashboard
 jobName: mest2024,
-username: kodinglife@gmail.com
+username: kodinglife
 frequency: every 15 minutes
 cronExpression: */15 * * * *
