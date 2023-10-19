@@ -16,6 +16,9 @@ app.use(accessControl)
 
 app.get('/', (req, res) =>  res.send("Hello there, Peris Muthoni Muriuki!") )
 app.get('/eits', eitRouter)
+app.get('/skills', eitRouter)
+app.get('/roles', eitRouter)
+app.get('/tskills', eitRouter)
 
 // app.get('/skills', skillRouter)
 // app.post('/skills', skillRouter)
