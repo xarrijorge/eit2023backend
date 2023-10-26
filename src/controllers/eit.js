@@ -51,18 +51,19 @@ eitRouter.get('/abscrow_users', (req, res) => {
   res.json(abscrow_users);
 });
 
-
-eitRouter.get('/abscrow_store/user/:email', (req, res) => {
+eitRouter.get('/abscrow_users/user/:email', (req, res) => {
   const userEmail = req.params.email; // Get the email parameter from the URL
 
-  // Search for the user in the abscrow_store array by email
-  const user = abscrow_store.find(user => user.email === userEmail);
+  res.send('hhhhhhhhy');
 
-  if (user) {
-    res.json(user); // User found and returned as JSON
-  } else {
-    res.status(404).json({ message: 'User not found' }); // User not found, respond with a 404 status
-  }
+  // // Search for the user in the abscrow_store array by email
+  // const user = abscrow_users.find(user => user.email === userEmail);
+
+  // if (user) {
+  //   res.json(user); // User found and returned as JSON
+  // } else {
+  //   res.status(404).json({ message: 'User not found' }); // User not found, respond with a 404 status
+  // }
 });
 
 eitRouter.post('/api/shop', (req, res, next) => {
@@ -70,12 +71,12 @@ eitRouter.post('/api/shop', (req, res, next) => {
 
   if (!body.name || !body.number) {
     return res.status(400).json({
-      error: 'missing name or number'
+      error: 'missing name or number',
     });
   }
 
-    // Define the SQL query to insert data into the PostgreSQL database
-    const insertQuery = `
+  // Define the SQL query to insert data into the PostgreSQL database
+  const insertQuery = `
     INSERT INTO shops (store_id, store_name, store_owner, total_sales, num_products)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;
@@ -83,28 +84,20 @@ eitRouter.post('/api/shop', (req, res, next) => {
 
   const { storeId, storeName, storeOwner, totalSales, numProducts } = body;
 
-
   const shop = new Shop({
     storeId: body.storeId,
     storeName: body.storeName,
     storeOwner: body.storeOwner,
     totalSales: body.totalSales,
-    numProducts: body.numProducts
+    numProducts: body.numProducts,
   });
 
-    // Execute the SQL query
-    db.one(insertQuery, [storeId, storeName, storeOwner, totalSales, numProducts])
+  // Execute the SQL query
+  db.one(insertQuery, [storeId, storeName, storeOwner, totalSales, numProducts])
     .then((savedShop) => {
       res.status(201).json(savedShop); // Respond with a 201 Created status
     })
     .catch((error) => next(error));
 });
-
-
-
-
-
-
-
 
 export default eitRouter;

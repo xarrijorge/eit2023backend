@@ -21,7 +21,7 @@ app.get('/roles', eitRouter);
 app.get('/tskills', eitRouter);
 app.get('/abscrow_store', eitRouter);
 app.get('/abscrow_users', eitRouter);
-app.get('/abscrow_store/user/:email', eitRouter);
+app.get('/abscrow_users/user/:email', eitRouter);
 app.post('/api/shop', eitRouter);
 // app.get('/skills', skillRouter)
 // app.post('/skills', skillRouter)
