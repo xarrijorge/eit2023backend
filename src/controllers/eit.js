@@ -51,6 +51,7 @@ eitRouter.get('/abscrow_users', (req, res) => {
   res.json(abscrow_users);
 });
 
+
 eitRouter.get('/abscrow_store/user/:email', (req, res) => {
   const userEmail = req.params.email; // Get the email parameter from the URL
 
@@ -63,6 +64,43 @@ eitRouter.get('/abscrow_store/user/:email', (req, res) => {
     res.status(404).json({ message: 'User not found' }); // User not found, respond with a 404 status
   }
 });
+
+eitRouter.post('/api/shop', (req, res, next) => {
+  const body = req.body;
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: 'missing name or number'
+    });
+  }
+
+    // Define the SQL query to insert data into the PostgreSQL database
+    const insertQuery = `
+    INSERT INTO shops (store_id, store_name, store_owner, total_sales, num_products)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
+  `;
+
+  const { storeId, storeName, storeOwner, totalSales, numProducts } = body;
+
+
+  const shop = new Shop({
+    storeId: body.storeId,
+    storeName: body.storeName,
+    storeOwner: body.storeOwner,
+    totalSales: body.totalSales,
+    numProducts: body.numProducts
+  });
+
+    // Execute the SQL query
+    db.one(insertQuery, [storeId, storeName, storeOwner, totalSales, numProducts])
+    .then((savedShop) => {
+      res.status(201).json(savedShop); // Respond with a 201 Created status
+    })
+    .catch((error) => next(error));
+});
+
+
 
 
 
