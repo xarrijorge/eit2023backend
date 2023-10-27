@@ -66,38 +66,41 @@ eitRouter.get('/abscrow_users/user/:email', (req, res) => {
   // }
 });
 
-eitRouter.post('/api/shop', (req, res, next) => {
+eitRouter.post('/api/shop', async (req, res, next) => {
   const body = req.body;
 
-  if (!body.name || !body.number) {
+  if (!body.storeOwner || !body.storeName) {
     return res.status(400).json({
-      error: 'missing name or number',
+      error: 'missing storeOwner or storeName',
     });
   }
 
   // Define the SQL query to insert data into the PostgreSQL database
-  const insertQuery = `
-    INSERT INTO shops (store_id, store_name, store_owner, total_sales, num_products)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
-  `;
+  // const insertQuery = `
+  //   INSERT INTO shops (store_id, store_name, store_owner, total_sales, num_products)
+  //   VALUES ($1, $2, $3, $4, $5)
+  //   RETURNING *;
+  // `;
 
   const { storeId, storeName, storeOwner, totalSales, numProducts } = body;
 
-  const shop = new Shop({
-    storeId: body.storeId,
-    storeName: body.storeName,
-    storeOwner: body.storeOwner,
-    totalSales: body.totalSales,
-    numProducts: body.numProducts,
-  });
 
+  const {data, error} = await Supabase_Client
+        .from('abscrow_store')
+        .insert({
+            storeId: storeId,
+            storeName: storeName,
+            storeOwner: storeOwner,
+            totalSales: totalSales,
+            numProducts: numProducts
+        })
+      })
   // Execute the SQL query
-  db.one(insertQuery, [storeId, storeName, storeOwner, totalSales, numProducts])
-    .then((savedShop) => {
-      res.status(201).json(savedShop); // Respond with a 201 Created status
-    })
-    .catch((error) => next(error));
-});
+//   db.abscrow_store(insertQuery, [storeId, storeName, storeOwner, totalSales, numProducts])
+//     .then((savedShop) => {
+//       res.status(201).json(savedShop); // Respond with a 201 Created status
+//     })
+//     .catch((error) => next(error));
+// });
 
 export default eitRouter;
