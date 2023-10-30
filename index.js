@@ -13,6 +13,7 @@ import accessControl from './src/utils/accessControl.js';
 
 import eitRouter from "./src/controllers/eit.js"
 import authRouter from "./src/controllers/auth.js"
+import { auth } from 'express-openid-connect'
 
 
 const PORT = process.env.PORT || 8000
@@ -86,8 +87,17 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-app.get('/login', authRouter)
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+});
 
+app.use('/', authRouter)
+// Auth routes
+app.get('/login', authRouter)
+app.get('/logout', authRouter)
+
+// Data routes
 app.get('/', (req, res) => res.send("Hello there, Peris Muthoni Muriuki!"))
 app.get('/eits', eitRouter)
 app.get('/skills', eitRouter)
@@ -97,9 +107,3 @@ app.get('/tskills', eitRouter)
 // app.get('/skills', skillRouter)
 // app.post('/skills', skillRouter)
 // app.post('/login', authRouter)
-
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log('Server listening on PORT', PORT);
-});
