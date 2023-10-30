@@ -4,11 +4,18 @@ import Supabase_Client from '../utils/dbConnection.js';
 
 // import data from "../eitsdata.js"
 
-const { data: users } = await Supabase_Client.from('users').select();
+const { data: users } = await Supabase_Client
+  .from('users')
+  .select()
 
-const { data: skills } = await Supabase_Client.from('skills').select();
 
-const { data: roles } = await Supabase_Client.from('roles').select();
+const { data: skills } = await Supabase_Client
+  .from('skills')
+  .select()
+
+const { data: roles } = await Supabase_Client
+  .from('roles')
+  .select()
 
 const { data: tskills } = await Supabase_Client.from('tskills').select();
 
