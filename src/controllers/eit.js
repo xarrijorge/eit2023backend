@@ -66,7 +66,7 @@ eitRouter.get('/abscrow_users/user/:email', (req, res) => {
 });
 
 // Adding skills
-eitRouter.post('/api/shop', async (req, res, next) => {
+eitRouter.post('/skills', async (req, res, next) => {
   const body = req.body;
 
   if (!body.name || !body.code) {
@@ -85,6 +85,27 @@ eitRouter.post('/api/shop', async (req, res, next) => {
       sname: name,
       scategory: category,
     }).select()
+  res.json(data)
+})
+
+// Update skills / Users
+eitRouter.put('/users/:id', async (req, res, next) => {
+  const body = req.body;
+  const id = req.params.id;
+
+  // const 
+
+
+
+  // const { name, code, category } = body;
+
+  const { data, error } = await Supabase_Client
+    .from('users')
+    .update({
+      username: "Peris",
+    })
+    .eq('id', id)
+    .select()
   res.json(data)
 })
 
