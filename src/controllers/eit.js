@@ -93,17 +93,12 @@ eitRouter.put('/users/:id', async (req, res, next) => {
   const body = req.body;
   const id = req.params.id;
 
-  // const 
+  const obj = JSON.parse(JSON.stringify(body));
 
-
-
-  // const { name, code, category } = body;
 
   const { data, error } = await Supabase_Client
     .from('users')
-    .update({
-      username: "Peris",
-    })
+    .update(obj)
     .eq('id', id)
     .select()
   res.json(data)
