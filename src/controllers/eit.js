@@ -19,12 +19,6 @@ const { data: roles } = await Supabase_Client
 
 const { data: tskills } = await Supabase_Client.from('tskills').select();
 
-const { data: abscrow_store } = await Supabase_Client.from(
-  'abscrow_store'
-).select();
-const { data: abscrow_users } = await Supabase_Client.from(
-  'abscrow_users'
-).select();
 
 // Routes below
 
@@ -46,23 +40,6 @@ eitRouter.get('/roles', (req, res) => {
 eitRouter.get('/tskills', (req, res) => {
   // const person = Math.floor(Math.random() * 51)
   res.json(tskills);
-});
-
-eitRouter.get('/abscrow_store', (req, res) => {
-  // const person = Math.floor(Math.random() * 51)
-  res.json(abscrow_store);
-});
-
-eitRouter.get('/abscrow_users', (req, res) => {
-  // const person = Math.floor(Math.random() * 51)
-  res.json(abscrow_users);
-});
-
-eitRouter.get('/abscrow_users/user/:email', (req, res) => {
-  const userEmail = req.params.email; // Get the email parameter from the URL
-
-  res.send('hhhhhhhhy');
-
 });
 
 // Adding skills
